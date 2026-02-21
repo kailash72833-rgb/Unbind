@@ -28,7 +28,7 @@ def verify_identity(access_token, security_code):
         if r.status_code == 200:
             resp = r.json()
             if resp.get('result') == 0:
-                return resp.get('identity_token')
+                return resp.get('identity_token'), None 
             else:
                 return None, resp
         else:
@@ -37,7 +37,7 @@ def verify_identity(access_token, security_code):
         return None, str(e)
 
 def unbind_identity(access_token, identity_token):
-    url = f"{BASE_URL}/game/account_security/bind:unbind_identity"
+    url = f"{BASE_URL}/game/account_security/bind:create_unbind_request"
     data = {
         'app_id': APP_ID,
         'access_token': access_token,
